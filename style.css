@@ -1,0 +1,224 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    background-color: #1b2838;
+    height: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+
+#nav {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #080c11;
+    color: white;
+}
+
+#nav .navleft, .navright {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+}
+
+#nav img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+#nav .section {
+    /* margin: 0 10px; */
+    padding: 26px;
+}
+
+#nav .section:hover {
+    cursor: pointer;
+    background-color: rgb(17, 17, 17);
+    color: rgb(255, 255, 255);
+}
+
+#container {
+    display: flex;
+}
+
+#search-box {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+#search {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.search input {
+    width: 80%;
+    height: 30px;
+    background-color: #224269;
+    font-size: 20px;
+}
+
+.search button {
+    color: white;;
+    background-color: #224269;
+    margin-left: 5px;
+    height: 30px;
+    padding: 0 10px;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.search button:hover {
+    background-color: rgb(17, 17, 17);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.search {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#container hr {
+    background-color: white;
+    height: 5px;
+    width: 100%;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+#category {
+    font-size: 24px;
+    
+    align-items: center;
+    margin: 10px 10px;
+    color: white;
+}  
+
+#category p {
+    font-size: 30px;
+    margin: 10px 0;
+    width: 100%;
+    text-align: center;
+    color: rgb(157, 59, 187);
+}
+
+.genresList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    
+}
+
+.genresList div {
+    display: flex;
+    border-radius: 10px;
+    width: 100%;
+    padding: 5px;
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    font-size: 20px;  
+}
+
+.genresList div:hover {
+    background-color: rgb(17, 17, 17);
+}
+
+.display-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    align-items: center;
+}
+
+.display-box>p {
+    font-size: 35px;
+    color: white;
+    margin: 10px 0;
+}
+
+.display {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+.display div {
+margin: 2px 5px;
+}
+
+.game-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.img:hover {
+    filter: brightness(150%);
+}
+
+.infor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    width: 95%;
+    margin: 5px 0 20px 20px;
+    color: white;
+}
+
+.single-game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: white;
+    
+}
+
+#textCenter {
+    color: aliceblue;
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+.information {
+    width: 100%;
+    height: 1000px;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+
+.information img {
+    width: 50%;
+    height: 40%;
+}
+
+.information p {
+    padding: 10px;
+}
