@@ -100,7 +100,7 @@ const renderDetailGame = async(appid) => {
         
         const a = document.createElement('div');
         a.className = 'single-game';
-        a.style.cssText = `background-image: url(${data.background})`;
+        
         a.innerHTML = 
         `<p id="textCenter">${dataGame.data.name}</p>
         <div class="display">
