@@ -13,6 +13,7 @@ body {
 }
 
 #nav {
+    overflow: visible;
     height: 80px;
     display: flex;
     justify-content: space-between;
@@ -33,6 +34,10 @@ body {
     height: 60px;
     margin-right: 20px;
     margin-left: 20px;
+}
+
+#nav p {
+    margin-right: 10px;
 }
 
 #nav .section {
@@ -221,4 +226,52 @@ margin: 2px 5px;
 
 .information p {
     padding: 10px;
+}
+
+
+#mobile, .mobile-icon {
+    display: none;
+}
+
+#mobile {
+    
+}
+
+@media (max-width: 740px) {
+
+.section {
+    display: none;
+}
+
+#container {
+    position: absolute;
+    top: 80px;
+    left: 20px;
+}
+
+#search-box {
+    position: relative;
+    display: none;
+}
+
+#mobile {
+    display: block;
+    padding: 26px;
+}
+
+#nav {
+    flex-direction: row-reverse;
+}
+
+.mobile-icon {
+    display: block;
+    overflow: visible;
+}
+
+#mobile:hover {
+    cursor: pointer;
+    background-color: rgb(17, 17, 17);
+    color: rgb(255, 255, 255);
+}
+
 }

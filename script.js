@@ -117,7 +117,13 @@ const renderDetailGame = async(appid) => {
     }
 }
 
+// renponsive mobile
 
+const menu = document.getElementById('mobile');
+menu.addEventListener('click', () => {
+    const a = document.getElementById('search-box');
+    a.style.cssText = `display: block`
+})
 
 
 
