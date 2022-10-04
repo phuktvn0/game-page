@@ -273,3 +273,13 @@ margin: 2px 5px;
 }
 
 }
+
+@media (min-width: 741px) {
+    #search-box {
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+}
