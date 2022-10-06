@@ -1,22 +1,40 @@
-const getGame = function (data) {
-    const   listGames = document.querySelector(".display")
-            listGames.innerHTML = "";
+let pageNumbers= [];
+let tagValue = "";
+let searchValue = "";
+let pageValue = "page=1";
+let url = "";
+
+
+// render game
+const renderGame = async (link) => {
+    try {
+        const   response = await fetch(link);
+        const   data = await response.json();
+        const   listGames = document.querySelector(".display")
+                listGames.innerHTML = "";
     
-            for (let i = 0; i < data.data.length; i++) {   
-                const game = document.createElement("div");
-                game.innerHTML = 
-                    `<div class="img">
-                        <img src="${data.data[i].header_image}" alt="">
-                    </div>
-                    <div class="infor">
-                        <p>${data.data[i].name}</p>
-                        <p>${data.data[i].price}$</p>
-                    </div>`
+                for (let i = 0; i < data.data.length; i++) {   
+                    const game = document.createElement("div");
+                    game.innerHTML = 
+                        `<div class="img">
+                            <img src="${data.data[i].header_image}" alt="">
+                        </div>
+                        <div class="infor">
+                            <p>${data.data[i].name}</p>
+                            <p>${data.data[i].price}$</p>
+                        </div>`
                     game.addEventListener("click",() => renderDetailGame(data.data[i].appid))
-                listGames.appendChild(game);
-                }
+                    listGames.appendChild(game);
+                    }
+    } catch (e) {
+        console.log(e)
+    }
 };
 
+renderGame("https://cs-steam-game-api.herokuapp.com/games?page=1&limit=20");
+
+
+// render tags category
 const getTagList = async () => {
     try {
         const response = await fetch("https://cs-steam-game-api.herokuapp.com/steamspy-tags");
@@ -30,7 +48,6 @@ const getTagList = async () => {
 
             listTag.appendChild(Tag);
         });
-
     } catch (e) {
         console.log(e);
     }
@@ -38,60 +55,108 @@ const getTagList = async () => {
 
 getTagList();
 
-const renderGames = async () => {
-    try {
-        const response = await fetch("https://cs-steam-game-api.herokuapp.com/games");
-        const data = await response.json();
-        getGame(data);
-    } catch (error) {
-        console.log(error);
-    }
-};
 
-renderGames();
-
-
-const action = async () => {
+// get link from the page
+const urlLink = async () => {
     try {
         await getTagList();
-        await renderGames();
-        const a = Array.from(document.querySelectorAll('.tags'));
-        a.forEach( (c) => {
-            c.addEventListener("click", async (d) => {
+        const tagsList = Array.from(document.querySelectorAll('.tags'));
+        tagsList.forEach( (tag) => {
+            tag.addEventListener("click", async (d) => {
                 const text = document.querySelector('#textCenter');
                 text.innerText = d.target.innerText;
-                let url = `https://cs-steam-game-api.herokuapp.com/games?steamspy_tags=${d.target.innerText.toLowerCase()}&page=1&limit=20`
-               
-                const x = await fetch(url);
-                const data = await x.json();
-            
-                getGame(data);
+                tagValue = `steamspy_tags=${d.target.innerText.toLowerCase()}`
+                url = `https://cs-steam-game-api.herokuapp.com/games?${tagValue}&page=1&limit=20`
+                // console.log(url);
+                renderGame(url);
+                renderPageNumber(1);
+                return tagValue;
             })
         });
+
 
         const search = document.querySelector(".s-text");
         const btn = document.querySelector(".s-btn");
         btn.addEventListener("click", async (d) => {
             const text = document.querySelector("#textCenter");
             text.innerText = `Result: ${search.value}`;
-
-            let url = `https://cs-steam-game-api.herokuapp.com/games?q=${search.value}`;
-            
-            const x = await fetch(url);
-            const data = await x.json();
-
-            getGame(data);
+            searchValue = `q=${search.value}`;
+            url = `https://cs-steam-game-api.herokuapp.com/games?${searchValue}&page=1&limit=20`;
+            // console.log(url);
+            renderGame(url);
+            renderPageNumber(1);
+            return searchValue;
         });
+
     } catch (e) {
         console.log(e);
     }
 };
 
-action();
+urlLink();
+
+// page number
+const renderPageNumber = (number) => {
+    let page = document.getElementById("page");
+    if (number < 2) {
+        page.innerHTML = 
+        `<button class="pageNumber">Back</button>
+        <button class="pageNumber" style="background-color:red;">${number}</button>
+        <button class="pageNumber">${number*1 + 1}</button>
+        <button class="pageNumber">${number*1 + 2}</button>
+        <button class="pageNumber">Next</button>`
+    } else {
+        page.innerHTML = 
+        `<button class="pageNumber">Back</button>
+        <button class="pageNumber">${number*1 - 1}</button>
+        <button class="pageNumber" style="background-color:red;">${number}</button>
+        <button class="pageNumber">${number*1 + 1}</button>
+        <button class="pageNumber">Next</button>`
+    }
+
+    pageNumbers = Array.from(document.getElementsByClassName("pageNumber"))
+
+    pageNumbers.forEach( (button) => {
+        button.addEventListener("click",(btn) => {
+            
+            let value = btn.target.innerHTML;
+            
+            if (value === "Back") {
+                if (number > 1) {
+                    number = number*1 - 1;
+                } else {
+                    number = 1;
+                }
+            } else if (value === "Next") {
+                number = number*1 + 1;
+            } else {
+                number = value;
+            }
+            renderPageNumber(number);
+            
+            if (tagValue) {
+                url = `https://cs-steam-game-api.herokuapp.com/games?${tagValue}&page=${number}&limit=20`
+                // console.log(url);
+                renderGame(url);
+            } else if (searchValue) {
+                url = `https://cs-steam-game-api.herokuapp.com/games?${searchValue}&page=${number}&limit=20`
+                // renderGame(url);
+            } else {
+                url = `https://cs-steam-game-api.herokuapp.com/games?page=${number}&limit=20`
+                // console.log(url);
+                renderGame(url);
+            }
+        })
+    })
+
+}
+
+renderPageNumber(1);
 
 
 const renderDetailGame = async(appid) => {
     try {
+        page.innerHTML = "";
         const listGames = document.querySelector(".display-box")
         listGames.innerHTML = "";
         const x = await fetch(`https://cs-steam-game-api.herokuapp.com/single-game/${appid}`);
@@ -111,7 +176,7 @@ const renderDetailGame = async(appid) => {
         </div>`;
         
         listGames.appendChild(a);
-
+        // renderPageNumber(1);
     } catch (e) {
         console.log(e)
     }
@@ -119,22 +184,22 @@ const renderDetailGame = async(appid) => {
 
 // renponsive mobile
 
-var b = 1;
+// var b = 1;
 
-const menu = document.getElementById('mobile');
-menu.addEventListener('click', () => {
-    const a = document.getElementById('search-box');
+// const menu = document.getElementById('mobile');
+// menu.addEventListener('click', () => {
+//     const a = document.getElementById('search-box');
     
-    if (b === 1) {
-        a.style.cssText = `display: block`
-        b = b + 1;
-        return b;
-    } else {
-        a.style.cssText = `display: none`
-        b = b - 1;
-        return b;
-    }
-})
+//     if (b === 1) {
+//         a.style.cssText = `display: block`
+//         b = b + 1;
+//         return b;
+//     } else {
+//         a.style.cssText = `display: none`
+//         b = b - 1;
+//         return b;
+//     }
+// })
 
 
 

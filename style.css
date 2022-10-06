@@ -229,6 +229,20 @@ margin: 2px 5px;
 }
 
 
+#page {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   height: 60px;
+}
+
+#page button {
+    height: 30px;
+    width: 60px;
+    font-size: 18px;
+}
+
 #mobile, .mobile-icon {
     display: none;
 }
