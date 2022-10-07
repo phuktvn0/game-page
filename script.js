@@ -15,6 +15,7 @@ const renderGame = async (link) => {
     
                 for (let i = 0; i < data.data.length; i++) {   
                     const game = document.createElement("div");
+                    game.id = "game"
                     game.innerHTML = 
                         `<div class="img">
                             <img src="${data.data[i].header_image}" alt="">

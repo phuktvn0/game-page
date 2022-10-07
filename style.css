@@ -179,6 +179,19 @@ margin: 2px 5px;
     align-items: center;
 }
 
+#game {
+    width: 400px;
+    margin: 30px 20px;
+    border: 2px solid white;
+    border-radius: 6px;
+}
+
+.img img {
+    width: 394px;
+    height: 190px;
+    margin-left: -4px;
+}
+
 .img:hover {
     filter: brightness(150%);
 }
@@ -187,10 +200,11 @@ margin: 2px 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 24px;
+    font-size: 20px;
     width: 95%;
     margin: 5px 0 20px 20px;
     color: white;
+    padding: 10px 0;
 }
 
 .single-game {
